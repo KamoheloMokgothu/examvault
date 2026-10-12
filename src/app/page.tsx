@@ -271,7 +271,7 @@ export default function Home() {
               Free past papers for South African learners • CAPS aligned
             </p>
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} ExamVault
+            © 2026 ExamVault
             </p>
           </div>
         </div>
