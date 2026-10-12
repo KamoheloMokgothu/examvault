@@ -38,7 +38,7 @@ export default function AdminPage() {
 
   // Check if already logged in
   useEffect(() => {
-    const saved = sessionStorage.getItem("examvault_admin");
+    const saved = sessionStorage.getItem("StudyPaperBox_admin");
     if (saved === "true") {
       setIsAuthenticated(true);
     }
@@ -72,7 +72,7 @@ export default function AdminPage() {
 
     if (passwordInput === correctPassword) {
       setIsAuthenticated(true);
-      sessionStorage.setItem("examvault_admin", "true");
+      sessionStorage.setItem("StudyPaperBox_admin", "true");
       setPasswordError("");
     } else {
       setPasswordError("Incorrect password");
@@ -81,7 +81,7 @@ export default function AdminPage() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem("examvault_admin");
+    sessionStorage.removeItem("StudyPaperBox_admin");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -209,7 +209,7 @@ export default function AdminPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <a href="/" className="text-blue-600 hover:underline text-sm">
-              ← Back to ExamVault
+              ← Back to StudyPaperBox
             </a>
             <h1 className="text-3xl font-bold text-gray-900 mt-2">Admin</h1>
             <p className="text-gray-500 mt-1">Add or delete past papers</p>
@@ -287,6 +287,12 @@ export default function AdminPage() {
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
               </select>
             </div>
 

@@ -62,28 +62,28 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">EV</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">ExamVault</h1>
-          </div>
-          <nav className="hidden sm:flex items-center gap-6 text-sm font-medium">
-            <a href="#papers" className="text-gray-600 hover:text-blue-600 transition">
-              Papers
-            </a>
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition">
-              Subjects
-            </a>
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition">
-              About
-            </a>
-          </nav>
-        </div>
-      </header>
+     {/* Header */}
+<header className="bg-white border-b sticky top-0 z-10">
+  <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div className="flex items-center gap-2">
+      <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+        <span className="text-white font-bold text-sm">SP</span>
+      </div>
+      <h1 className="text-xl font-bold text-gray-900">StudyPaperBox</h1>
+    </div>
+    <nav className="hidden sm:flex items-center gap-6 text-sm font-medium">
+      <a href="#papers" className="text-gray-600 hover:text-blue-600 transition">
+        Papers
+      </a>
+      <a href="#" className="text-gray-600 hover:text-blue-600 transition">
+        Subjects
+      </a>
+      <a href="#" className="text-gray-600 hover:text-blue-600 transition">
+        About
+      </a>
+    </nav>
+  </div>
+</header>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16 md:py-20">
@@ -258,24 +258,24 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-auto">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">EV</span>
-              </div>
-              <span className="font-semibold text-gray-800">ExamVault</span>
-            </div>
-            <p className="text-sm text-gray-500 text-center">
-              Free past papers for South African learners • CAPS aligned
-            </p>
-            <p className="text-sm text-gray-400">
-            © 2026 ExamVault
-            </p>
-          </div>
+<footer className="bg-white border-t mt-auto">
+  <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="flex items-center gap-2">
+        <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
+          <span className="text-white font-bold text-xs">SP</span>
         </div>
-      </footer>
+        <span className="font-semibold text-gray-800">StudyPaperBox</span>
+      </div>
+      <p className="text-sm text-gray-500 text-center">
+        Free past papers for South African learners • CAPS aligned
+      </p>
+      <p className="text-sm text-gray-400">
+        © 2026 StudyPaperBox
+      </p>
+    </div>
+  </div>
+</footer>
     </main>
   );
 }
