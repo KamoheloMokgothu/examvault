@@ -261,15 +261,29 @@ export default function AdminPage() {
                 onChange={(e) => setSubject(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900"
               >
-                <option value="mathematics">Mathematics</option>
-                <option value="mathematical-literacy">Mathematical Literacy</option>
-                <option value="physical-sciences">Physical Sciences</option>
-                <option value="life-sciences">Life Sciences</option>
-                <option value="accounting">Accounting</option>
-                <option value="business-studies">Business Studies</option>
-                <option value="geography">Geography</option>
-                <option value="english">English</option>
-                <option value="afrikaans">Afrikaans</option>
+               <option value="">All Subjects</option>
+<option value="mathematics">Mathematics</option>
+<option value="mathematical-literacy">Mathematical Literacy</option>
+<option value="physical-sciences">Physical Sciences</option>
+<option value="life-sciences">Life Sciences</option>
+<option value="life-orientation">Life Orientation</option>
+<option value="accounting">Accounting</option>
+<option value="business-studies">Business Studies</option>
+<option value="economics">Economics</option>
+<option value="consumer-studies">Consumer Studies</option>
+<option value="geography">Geography</option>
+<option value="history">History</option>
+<option value="english">English</option>
+<option value="afrikaans">Afrikaans</option>
+<option value="sesotho">Sesotho</option>
+<option value="setswana">Setswana</option>
+<option value="sepedi">Sepedi</option>
+<option value="isixhosa">isiXhosa</option>
+<option value="isindebele">isiNdebele</option>
+<option value="isizulu">isiZulu</option>
+<option value="siswati">Siswati</option>
+<option value="tshivenda">Tshivenda</option>
+<option value="xitsonga">Xitsonga</option>
               </select>
             </div>
           </div>
