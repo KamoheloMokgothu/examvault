@@ -24,6 +24,7 @@ export default function Home() {
   const [subject, setSubject] = useState("");
   const [year, setYear] = useState("");
   const [term, setTerm] = useState("");
+  const [query, setQuery] = useState("");
 
   // Fetch papers from Supabase
   useEffect(() => {
@@ -57,12 +58,18 @@ export default function Home() {
     setSubject("");
     setYear("");
     setTerm("");
+    setQuery("");
   };
 
-  const hasActiveFilters = grade || subject || year || term;
+  const hasActiveFilters = grade || subject || year || term || query;
   
   const visible = useMemo(() => {
-    const copy = [...papers];
+    const q = query.trim().toLowerCase();
+    const filtered = papers.filter((paper) => {
+      if (!q) return true;
+      return `${paper.title} ${paper.subject} ${paper.language}`.toLowerCase().includes(q);
+    });
+    const copy = [...filtered];
     if (sort === "year-desc") copy.sort((a, b) => Number(b.year) - Number(a.year));
     else if (sort === "year-asc") copy.sort((a, b) => Number(a.year) - Number(b.year));
     else if (sort === "grade-desc") copy.sort((a, b) => Number(b.grade) - Number(a.grade));
@@ -70,7 +77,7 @@ export default function Home() {
     else if (sort === "language") copy.sort((a, b) => a.language.localeCompare(b.language));
     else copy.sort((a, b) => b.id - a.id);
     return copy;
-  }, [papers, sort]);
+  }, [papers, sort, query]);
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
@@ -129,6 +136,13 @@ export default function Home() {
             </button>
           )}
         </div>
+
+        <input
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  placeholder="Search by title, subject, or language"
+  className="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+/>
 
         {/* Filters */}
         <div className="bg-white p-5 md:p-6 rounded-2xl shadow-sm border mb-8">
