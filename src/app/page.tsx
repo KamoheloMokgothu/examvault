@@ -25,11 +25,17 @@ export default function Home() {
   const [year, setYear] = useState("");
   const [term, setTerm] = useState("");
   const [query, setQuery] = useState("");
+  const [studied, setStudied] = useState<number[]>([]);
 
   // Fetch papers from Supabase
   useEffect(() => {
     async function fetchPapers() {
       setLoading(true);
+
+      useEffect(() => {
+        const saved = localStorage.getItem("studypaperbox-studied");
+        if (saved) setStudied(JSON.parse(saved));
+      }, []);
 
       let query = supabase.from("papers").select("*").order("id", { ascending: false });
 
@@ -78,6 +84,16 @@ export default function Home() {
     else copy.sort((a, b) => b.id - a.id);
     return copy;
   }, [papers, sort, query]);
+
+  const toggleStudied = (id: number) => {
+    setStudied((current) => {
+      const next = current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id];
+      localStorage.setItem("studypaperbox-studied", JSON.stringify(next));
+      return next;
+    });
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
@@ -292,20 +308,31 @@ export default function Home() {
                     Grade {paper.grade} • Term {paper.term} • {paper.language}
                   </p>
                 </div>
-                <div className="flex gap-2.5">
-                  <a
-                    href={paper.paper_url || "#"}
-                    className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition"
-                  >
-                    Question Paper
-                  </a>
-                  <a
-                    href={paper.memo_url || "#"}
-                    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-200 transition"
-                  >
-                    Memo
-                  </a>
-                </div>
+                <div className="flex flex-wrap gap-2.5">
+  <button
+    type="button"
+    onClick={() => toggleStudied(paper.id)}
+    className={`px-4 py-2 text-sm font-medium rounded-xl transition ${
+      studied.includes(paper.id)
+        ? "bg-green-600 text-white hover:bg-green-700"
+        : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+    }`}
+  >
+    {studied.includes(paper.id) ? "Studied" : "Mark as studied"}
+  </button>
+  <a
+    href={paper.paper_url || "#"}
+    className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition"
+  >
+    Question Paper
+  </a>
+  <a
+    href={paper.memo_url || "#"}
+    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-200 transition"
+  >
+    Memo
+  </a>
+</div>
               </div>
             ))
           )}
