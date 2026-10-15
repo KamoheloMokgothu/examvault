@@ -29,33 +29,33 @@ export default function Home() {
 
   // Fetch papers from Supabase
   useEffect(() => {
+    const saved = localStorage.getItem("studypaperbox-studied");
+    if (saved) setStudied(JSON.parse(saved));
+  }, []);
+  
+  useEffect(() => {
     async function fetchPapers() {
       setLoading(true);
-
-      useEffect(() => {
-        const saved = localStorage.getItem("studypaperbox-studied");
-        if (saved) setStudied(JSON.parse(saved));
-      }, []);
-
-      let query = supabase.from("papers").select("*").order("id", { ascending: false });
-
-      if (grade) query = query.eq("grade", grade);
-      if (subject) query = query.eq("subject", subject);
-      if (year) query = query.eq("year", year);
-      if (term) query = query.eq("term", term);
-
-      const { data, error } = await query;
-
+  
+      let request = supabase.from("papers").select("*").order("id", { ascending: false });
+  
+      if (grade) request = request.eq("grade", grade);
+      if (subject) request = request.eq("subject", subject);
+      if (year) request = request.eq("year", year);
+      if (term) request = request.eq("term", term);
+  
+      const { data, error } = await request;
+  
       if (error) {
         console.error("Error fetching papers:", error);
         setPapers([]);
       } else {
         setPapers(data || []);
       }
-
+  
       setLoading(false);
     }
-
+  
     fetchPapers();
   }, [grade, subject, year, term]);
 
