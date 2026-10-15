@@ -332,8 +332,8 @@ export default function AdminPage() {
               onChange={(e) => setLanguage(e.target.value)}
               className="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900"
             >
-              <option value="English">English</option>
-              <option value="Afrikaans">Afrikaans</option>
+             <option value="Afrikaans">Afrikaans</option>
+             <option value="English">English</option>
             </select>
           </div>
 

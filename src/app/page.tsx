@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 type Paper = {
@@ -18,6 +18,7 @@ type Paper = {
 export default function Home() {
   const [papers, setPapers] = useState<Paper[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState("newest");
 
   const [grade, setGrade] = useState("");
   const [subject, setSubject] = useState("");
@@ -59,6 +60,17 @@ export default function Home() {
   };
 
   const hasActiveFilters = grade || subject || year || term;
+  
+  const visible = useMemo(() => {
+    const copy = [...papers];
+    if (sort === "year-desc") copy.sort((a, b) => Number(b.year) - Number(a.year));
+    else if (sort === "year-asc") copy.sort((a, b) => Number(a.year) - Number(b.year));
+    else if (sort === "grade-desc") copy.sort((a, b) => Number(b.grade) - Number(a.grade));
+    else if (sort === "grade-asc") copy.sort((a, b) => Number(a.grade) - Number(b.grade));
+    else if (sort === "language") copy.sort((a, b) => a.language.localeCompare(b.language));
+    else copy.sort((a, b) => b.id - a.id);
+    return copy;
+  }, [papers, sort]);
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
@@ -206,14 +218,30 @@ export default function Home() {
           </div>
         </div>
 
+        <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1.5">Sort</label>
+  <select
+    value={sort}
+    onChange={(e) => setSort(e.target.value)}
+    className="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+  >
+    <option value="newest">Newest added</option>
+    <option value="year-desc">Year (newest)</option>
+    <option value="year-asc">Year (oldest)</option>
+    <option value="grade-desc">Grade (12 to 8)</option>
+    <option value="grade-asc">Grade (8 to 12)</option>
+    <option value="language">Language (A–Z)</option>
+  </select>
+</div>
+
         {/* Results */}
         <p className="text-sm text-gray-500 mb-4">
           {loading ? (
             "Loading papers..."
           ) : (
             <>
-              Showing <span className="font-medium text-gray-700">{papers.length}</span> paper
-              {papers.length !== 1 ? "s" : ""}
+              Showing <span className="font-medium text-gray-700">{visible.length}</span> paper
+              {visible.length !== 1 ? "s" : ""}
             </>
           )}
         </p>
@@ -223,7 +251,7 @@ export default function Home() {
             <div className="bg-white border rounded-2xl p-12 text-center text-gray-500">
               Loading...
             </div>
-          ) : papers.length === 0 ? (
+          ) : visible.length === 0 ? (
             <div className="bg-white border rounded-2xl p-12 text-center">
               <p className="text-gray-500 text-lg">No papers found</p>
               <p className="text-gray-400 text-sm mt-1">
@@ -239,7 +267,7 @@ export default function Home() {
               )}
             </div>
           ) : (
-            papers.map((paper) => (
+            visible.map((paper) => (
               <div
                 key={paper.id}
                 className="bg-white border rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:shadow-md hover:border-blue-200 transition"
